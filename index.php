@@ -112,6 +112,103 @@ $machines = [
   ['name' => 'ネオジオ', 'brand' => 'SNK', 'year' => 1990]
 ];
 
+echo '<br>';
+echo "{$machines[0]['name']} - {$machines[0]['brand']}({$machines[0]['year']})";
+
+?>
+<br>
+<?php
+
+$fruits = ['りんご', 'バナナ', 'ブドウ', 'マンゴー']; //$fruits[0] - りんご
+for( $i = 0; $i < count($fruits); $i++ ){
+  echo $fruits[$i] . '<br>';
+}
+
+foreach($fruits as $f){
+  echo $f . '<br>';
+}
+
+foreach($machines as $m) {
+  // ゲーム機の名前 - ブランド(年)
+  echo "{$m['name']} - {$m['brand']}({$m['year']})<br>";
+}
+
+?>
+
+<ul>
+  <?php foreach($machines as $m): ?>
+  <li><?= $m['name']; ?> - <?= $m['brand']; ?>(<?= $m['year']; ?>)</li>
+  <?php endforeach; ?>
+</ul>
+
+<?php
+echo 5 < 10;
+echo 4 > 8;
+var_dump(5 < 10);
+var_dump(4 > 8);
+?>
+
+<br>
+
+<?php
+$fruits = [
+	['name' => 'りんご', 'price' => 100],
+	['name' => 'なし', 'price' => 120],
+	['name' => 'みかん', 'price' => 90],
+];
+
+foreach($fruits as $f) {
+
+  if( $f['price'] >= 110 ) {
+    // break;
+    continue;
+  }
+
+  echo "{$f['name']} {$f['price']}円<br>";
+
+}
+
+
+$x = '埼玉';
+
+switch($x){
+  case '東京':
+    echo 'PayPayの還元率は最大15%です';
+    break;
+  case '神奈川':
+    echo 'PayPayの還元率は最大10%です';
+    break;
+  default:
+    echo 'PayPayの還元はありません';
+}
+
+?>
+<br>
+
+<?php
+$price = 1000;
+
+function formatYenPrice($price=500) {
+  return number_format($price) . "円";
+}
+
+echo formatYenPrice($price);
+
+?>
+
+<br>
+
+<?php
+
+$name = 'ケンシロウ';
+
+function outputName() {
+  global $name;
+  echo '俺の名前は' . $name;
+}
+outputName();
+
+
 ?>
 
 </body>
