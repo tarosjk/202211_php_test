@@ -7,7 +7,7 @@ $errors = [
 ];
 
 // 入力値の再反映用
-$pizzaname = '';
+$pizzaname = $chefname = $topping = '';
 
 // データの送信チェック
 if( isset($_POST['submit']) ) {
@@ -17,14 +17,30 @@ if( isset($_POST['submit']) ) {
   // 必須入力
   if( empty($_POST['pizzaname']) ) {
     $errors['pizzaname'] = 'ピザ名は必須入力です';
-  }
-  if( empty($_POST['chefname']) ) {
-    $errors['chefname'] = 'シェフ名は必須入力です';
-  }
-  if( empty($_POST['topping']) ) {
-    $errors['topping'] = 'トッピングは必須入力です';
+  } else {
+    $pizzaname = $_POST['pizzaname'];
   }
 
+  if( empty($_POST['chefname']) ) {
+    $errors['chefname'] = 'シェフ名は必須入力です';
+  } else {
+    $chefname = $_POST['chefname'];
+  }
+
+  if( empty($_POST['topping']) ) {
+    $errors['topping'] = 'トッピングは必須入力です';
+  } else {
+    $topping = $_POST['topping'];
+  }
+
+  // エラーがあったかどうかのチェック
+  // $errors配列のそれぞれの値が空かどうかをチェック
+  if( !array_filter($errors) ) {
+    // 配列が空(false) = エラーなし
+    // リダイレクト(TOPページへ)
+    header('location:pizza.php');
+    exit; //全ての処理ストップ
+  }
 
 }
 
@@ -52,12 +68,12 @@ if( isset($_POST['submit']) ) {
         </div>
         <div class="mb-3">
           <label for="chefname" class="form-label">シェフの名前</label>
-          <input type="text" class="form-control" id="chefname" name="chefname">
+          <input type="text" class="form-control" id="chefname" name="chefname" value="<?= $chefname; ?>">
           <p class="form-text text-danger"><?= $errors['chefname']; ?></p>
         </div>
         <div class="mb-3">
           <label for="topping" class="form-label">トッピング</label>
-          <input type="text" class="form-control" id="topping" name="topping">
+          <input type="text" class="form-control" id="topping" name="topping" value="<?= $topping; ?>">
           <p class="form-text text-danger"><?= $errors['topping']; ?></p>
         </div>
         <div class="text-center">
