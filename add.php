@@ -1,8 +1,31 @@
 <?php
+// エラーメッセージ
+$errors = [
+  'pizzaname' => '',
+  'chefname' => '',
+  'topping' => '',
+];
+
+// 入力値の再反映用
+$pizzaname = '';
 
 // データの送信チェック
 if( isset($_POST['submit']) ) {
-  echo 'フォーム送信しました';
+  
+  // echo 'フォーム送信しました';
+
+  // 必須入力
+  if( empty($_POST['pizzaname']) ) {
+    $errors['pizzaname'] = 'ピザ名は必須入力です';
+  }
+  if( empty($_POST['chefname']) ) {
+    $errors['chefname'] = 'シェフ名は必須入力です';
+  }
+  if( empty($_POST['topping']) ) {
+    $errors['topping'] = 'トッピングは必須入力です';
+  }
+
+
 }
 
 ?>
@@ -24,15 +47,18 @@ if( isset($_POST['submit']) ) {
       <form action="add.php" method="post">
         <div class="mb-3">
           <label for="pizzaname" class="form-label">ピザの名前</label>
-          <input type="text" class="form-control" id="pizzaname" name="pizzaname">
+          <input type="text" class="form-control" id="pizzaname" name="pizzaname" value="<?= $pizzaname; ?>">
+          <p class="form-text text-danger"><?= $errors['pizzaname']; ?></p>
         </div>
         <div class="mb-3">
           <label for="chefname" class="form-label">シェフの名前</label>
           <input type="text" class="form-control" id="chefname" name="chefname">
+          <p class="form-text text-danger"><?= $errors['chefname']; ?></p>
         </div>
         <div class="mb-3">
           <label for="topping" class="form-label">トッピング</label>
           <input type="text" class="form-control" id="topping" name="topping">
+          <p class="form-text text-danger"><?= $errors['topping']; ?></p>
         </div>
         <div class="text-center">
           <button class="btn btn-primary" name="submit" value="submit">登録する</button>
