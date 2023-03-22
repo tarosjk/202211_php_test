@@ -1,4 +1,6 @@
 <?php
+require('config/dbconnect.php');
+
 // エラーメッセージ
 $errors = [
   'pizzaname' => '',
@@ -36,10 +38,21 @@ if( isset($_POST['submit']) ) {
   // エラーがあったかどうかのチェック
   // $errors配列のそれぞれの値が空かどうかをチェック
   if( !array_filter($errors) ) {
-    // 配列が空(false) = エラーなし
-    // リダイレクト(TOPページへ)
-    header('location:pizza.php');
-    exit; //全ての処理ストップ
+    // データベースの処理
+    $stmt = $db->prepare('INSERT INTO `pizza`(`pizzaname`, `chefname`, `topping`) VALUES (?,?,?)');
+    $stmt->bindValue(1, $_POST['pizzaname']);
+    $stmt->bindValue(2, $_POST['chefname']);
+    $stmt->bindValue(3, $_POST['topping']);
+    $result = $stmt->execute();
+
+    if($result) {
+      // 配列が空(false) = エラーなし
+      // リダイレクト(TOPページへ)
+      header('location:pizza.php');
+      exit; //全ての処理ストップ
+    }
+
+    
   }
 
 }
